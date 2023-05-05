@@ -1,23 +1,27 @@
-import logo from './logo.svg';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
+import Login from './components/Login';
+import Register from './components/Register';
+import CompanyInfo from './pages/CompanyInfo';
+import Movielist from './pages/Movielist';
+import Navbars from './components/Navbar';
+import Mainfile from './layout/Mainfile';
 
 function App() {
+  const location = useLocation();
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ToastContainer autoClose={2000} />
+      {location.pathname === '/' ? (<Login />) : (
+        <Routes>
+          <Route path='/home' element={<Mainfile Component={Navbars} />} />
+          <Route path='/register' element={<Register />} />
+          <Route path='/movie' element={<Mainfile Component={Movielist} />} />
+          <Route path='/company_info' element={<Mainfile Component={CompanyInfo} />} />
+        </Routes>
+      )}
     </div>
   );
 }
